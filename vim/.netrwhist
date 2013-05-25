@@ -1,0 +1,4 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/Users/tigraine/dotfiles/vim/bundle/vim-surround'
+let g:netrw_dirhist_2='/Users/tigraine/projects/lyoness-tv-2013/app/controllers/api/.yardoc'

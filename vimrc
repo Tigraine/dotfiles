@@ -62,3 +62,5 @@ colorscheme vibrantink
 :imap <c-l> <space>=><space>
 
 :map <leader>t :w<CR>:! rspec spec<CR>
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim

@@ -187,7 +187,7 @@ mode $mode-system {
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
-bindsym $mod+x mode $mode-system
+bindsym Mod4+Shift+x mode $mode-system
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)

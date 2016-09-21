@@ -176,7 +176,7 @@ mode "resize" {
 
 bindsym Mod4+r mode "resize"
 
-set $mode-system "e[X]it -  [R]eboot - [P]oweroff - [H]ibernate - [S]uspend - [L]ock"
+set $mode-system "e[X]it -  [R]eboot - [P]oweroff - [H]ibernate - [S]uspend - [L]ock - Esc to cancel"
 mode $mode-system {
   bindsym x exit
   bindsym r exec systemctl reboot

@@ -12,6 +12,7 @@ set backspace=indent,eol,start
 "general tabstopp stuff
 set ts=2
 set sw=2
+set expandtab
 "set number
 set number
 
@@ -73,6 +74,7 @@ set backupcopy=yes
 
 let g:jsx_ext_required = 0
 
+set statusline+=%f
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*

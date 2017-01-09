@@ -174,3 +174,4 @@ endif
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 imap <C-h> <Plug>(neosnippet_expand_or_jump)
+inoremap jj <Esc>

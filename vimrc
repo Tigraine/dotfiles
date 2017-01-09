@@ -65,8 +65,6 @@ map <C-n> :NERDTreeToggle<CR>
 
 :nnoremap <CR> :nohlsearch<cr>
 
-:imap <c-j> <%=
-:imap <c-k> %>
 :imap <c-l> <space>=><space>
 
 :map <leader>t :w<CR>:! rspec spec<CR>
@@ -174,3 +172,5 @@ endif
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+imap <C-h> <Plug>(neosnippet_expand_or_jump)

@@ -1,3 +1,5 @@
+[core]
+	editor = vim
 [alias]
 	diffc = diff --cached
 	st = status
@@ -5,3 +7,5 @@
 	lga = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all
 	ff = merge --ff-o
 	pod = push origin develop
+  puc = "! git push origin $(git symbolic-ref --short HEAD)"
+  filelog = log -u

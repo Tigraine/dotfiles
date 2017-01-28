@@ -175,3 +175,15 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 imap <C-h> <Plug>(neosnippet_expand_or_jump)
 inoremap jj <Esc>
+
+syntax enable  
+filetype plugin on  
+set number  
+let g:go_disable_autoinstall = 0
+
+" Highlight
+let g:go_highlight_functions = 1  
+let g:go_highlight_methods = 1  
+let g:go_highlight_structs = 1  
+let g:go_highlight_operators = 1  
+let g:go_highlight_build_constraints = 1  

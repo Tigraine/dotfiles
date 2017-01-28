@@ -187,3 +187,7 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1  
 let g:go_highlight_operators = 1  
 let g:go_highlight_build_constraints = 1  
+
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup

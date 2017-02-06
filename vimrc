@@ -191,3 +191,23 @@ let g:go_highlight_build_constraints = 1
 python from powerline.vim import setup as powerline_setup
 python powerline_setup()
 python del powerline_setup
+nmap <F8> :TagbarToggle<CR>
+
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>cc <Plug>(go-coverage)
+au FileType go nmap <leader>cx :GoCoverageClear<CR>
+
+au FileType go nmap <leader>ds <Plug>(go-def-split)
+au FileType go nmap <leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <leader>dt <Plug>(go-def-tab)
+
+au FileType go nmap <leader>gd <Plug>(go-doc)
+au FileType go nmap <leader>gv <Plug>(go-doc-vertical)
+
+au FileType go nmap <leader>gb <Plug>(go-doc-browser)
+
+au FileType go nmap <leader>e <Plug>(go-rename)
+au FileType go nmap <leader>i <Plug>(go-info)
+au FileType go nmap <leader>s <Plug>(go-implements)

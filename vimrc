@@ -9,6 +9,8 @@ filetype plugin indent on
 " make backspace erase everything
 set backspace=indent,eol,start
 
+set rtp+=~/.fzf
+
 "general tabstopp stuff
 set ts=2
 set sw=2
@@ -34,7 +36,7 @@ set scrolloff=3
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
-set shell=/usr/bin/zsh
+set shell=/usr/local/bin/zsh
 
 
 syntax enable
@@ -59,17 +61,15 @@ set laststatus=2
 "autocmd VimEnter * wincmd p
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-map <C-n> :NERDTreeToggle<CR>
 
 :set cursorline
 
 :nnoremap <CR> :nohlsearch<cr>
 
-:imap <c-l> <space>=><space>
+":imap <c-l> <space>=><space>
 
-:map <leader>t :w<CR>:! rspec spec<CR>
+":map <leader>t :w<CR>:! rspec spec<CR>
 
-set runtimepath^=~/.vim/bundle/ctrlp.vim
 set backupcopy=yes
 
 let g:jsx_ext_required = 0
@@ -97,10 +97,6 @@ highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn
 highlight link SyntasticStyleErrorSign SignColumn
 highlight link SyntasticStyleWarningSign SignColumn
-
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)|(node_modules)|(build)$'
-  \ }
 
 "Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
@@ -131,7 +127,8 @@ inoremap <expr><C-l>     neocomplete#complete_common_string()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" DHI: Removed to try something
 function! s:my_cr_function()
   return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
   " For no inserting <CR> key.
@@ -176,6 +173,10 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 imap <C-h> <Plug>(neosnippet_expand_or_jump)
 inoremap jj <Esc>
 
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+
 syntax enable  
 filetype plugin on  
 set number  
@@ -187,10 +188,12 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1  
 let g:go_highlight_operators = 1  
 let g:go_highlight_build_constraints = 1  
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_fmt_command = "goimports"
+let g:go_metalinter_autosave = 0
+let g:go_auto_type_info = 1
 
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
 nmap <F8> :TagbarToggle<CR>
 
 au FileType go nmap <leader>r <Plug>(go-run)
@@ -211,3 +214,9 @@ au FileType go nmap <leader>gb <Plug>(go-doc-browser)
 au FileType go nmap <leader>e <Plug>(go-rename)
 au FileType go nmap <leader>i <Plug>(go-info)
 au FileType go nmap <leader>s <Plug>(go-implements)
+
+au FileType go map <C-n> :cnext<CR>
+au FileType go map <C-m> :cprevious<CR>
+au FileType go nnoremap <leader>a :cclose<CR>
+
+map <C-p> :FZF<CR>

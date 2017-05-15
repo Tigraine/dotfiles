@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/dhoelbling/.oh-my-zsh
+  export ZSH=/Users/tigraine/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -75,7 +75,7 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-export DEFAULT_USER="dhoelbling"
+export DEFAULT_USER="tigraine"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -89,19 +89,17 @@ export DEFAULT_USER="dhoelbling"
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f /home/dhoelbling/tools/google-cloud-sdk/path.zsh.inc ]; then
-  source '/home/dhoelbling/tools/google-cloud-sdk/path.zsh.inc'
-fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f /home/dhoelbling/tools/google-cloud-sdk/completion.zsh.inc ]; then
-  source '/home/dhoelbling/tools/google-cloud-sdk/completion.zsh.inc'
-fi
-
 export PATH=$PATH:/usr/local/go/bin
 export GOPATH=$HOME/projects/go
 
 alias newtmux='tmux new-session -s $(basename `pwd`)'
 
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/tigraine/Downloads/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/tigraine/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/tigraine/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/tigraine/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
 source <(kubectl completion zsh)
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

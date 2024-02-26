@@ -2,12 +2,13 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/Users/tigraine/.oh-my-zsh
+export ZSH=/Users/daniel/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+#ZSH_THEME="agnoster"
+ZSH_THEME="arrow"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -51,7 +52,8 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colored-man-pages tmux vi-mode web-search mvn docker npm zsh-syntax-highlighting)
+plugins=(git colored-man-pages vi-mode web-search mvn docker npm zsh-syntax-highlighting zsh-nvm)
+autoload -U compinit && compinit
 
 source $ZSH/oh-my-zsh.sh
 
@@ -63,11 +65,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='vim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -75,7 +77,7 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-export DEFAULT_USER="tigraine"
+export DEFAULT_USER="daniel"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -85,21 +87,81 @@ export DEFAULT_USER="tigraine"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+alias vim="vim"
 
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:~/projects/go/bin
 export GOPATH=$HOME/projects/go
+export GOBIN=$HOME/projects/go/bin
+export GOPRIVATE=github.com
 
 alias newtmux='tmux new-session -s $(basename `pwd`)'
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/tigraine/Downloads/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/tigraine/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/tigraine/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/tigraine/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+alias gotest='go test $(go list ./... | grep -v /vendor/)'
 
 source <(kubectl completion zsh)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:/usr/local/sbin"
+export PATH="$PATH:$GOBIN"
+
+export GPG_TTY=$(tty)
+
+alias git-auto-sign='git config commit.gpgsign true'
+alias k8s-switch-bitmovin-api='gcloud container clusters get-credentials bitmovin-api --zone europe-west1-b --project bitmovin-api'
+alias k8s-switch-analytics='kubectl config use-context gke_bitmovin-bitanalytics-dev_europe-west1_analytics-processors-prod'
+alias k8s-switch-player-licensing='gcloud beta container clusters get-credentials player-licensing-mgmt-cluster --region europe-west1 --project player-licensing-v2'
+alias k8s-switch-legacy-api='gcloud beta container clusters get-credentials bitmovin-legacy-services --region europe-west1 --project bitmovin-api'
+alias k8s-switch-frontend='gcloud container clusters get-credentials bitmovin-frontend-us-east1 --region us-east1 --project bitmovin-frontend'
+
+alias going='cd $GOPATH/src/github.com/bitmovin/bitmovin-analytics-ingress'
+alias gotoo='cd $GOPATH/src/github.com/bitmovin/bitmovin-analytics-tools'
+
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+
+export GO111MODULE=on
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/vault vault
+export PATH="/usr/local/opt/go@1.13/bin:$PATH"
+
+export VAULT_ADDR="https://vault.bitmovin.systems"
+
+#export CLOUDSDK_PYTHON=/usr/local/bin/python3
+
+export PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH
+export PATH=/Users/daniel/Library/Python/3.9/bin:$PATH
+
+export DOCKER_MOUNTED_VOLUMES_DIR=/Users/daniel/.docker-mounted-volumes
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/daniel/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/daniel/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/daniel/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/daniel/google-cloud-sdk/completion.zsh.inc'; fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+eval "$(zoxide init zsh --cmd cd)"
+
+if type brew &>/dev/null
+then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+  autoload -Uz compinit
+  compinit
+fi
+
+compinit
+
+complete -o nospace -C /opt/homebrew/bin/terraform terraform

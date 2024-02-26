@@ -1,14 +1,28 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-export ZSH=/Users/daniel/.oh-my-zsh
+[[ -r ~/znap/znap.zsh ]] ||
+    git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/znap
+source ~/znap/znap.zsh
+
+# `znap prompt` makes your prompt visible in just 15-40ms!
+znap prompt sindresorhus/pure
+
+# `znap source` starts plugins.
+znap source marlonrichert/zsh-autocomplete
+
+# `znap eval` makes evaluating generated command output up to 10 times faster.
+znap eval iterm2 'curl -fsSL https://iterm2.com/shell_integration/zsh'
+
+# `znap install` adds new commands and completions.
+znap install aureliojargas/clitest zsh-users/zsh-completions
+
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="agnoster"
-ZSH_THEME="arrow"
+#ZSH_THEME="arrow"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -48,14 +62,6 @@ COMPLETION_WAITING_DOTS="true"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git colored-man-pages vi-mode web-search mvn docker npm zsh-syntax-highlighting zsh-nvm)
-autoload -U compinit && compinit
-
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -153,15 +159,5 @@ export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
 
 eval "$(zoxide init zsh --cmd cd)"
-
-if type brew &>/dev/null
-then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-  autoload -Uz compinit
-  compinit
-fi
-
-compinit
 
 complete -o nospace -C /opt/homebrew/bin/terraform terraform

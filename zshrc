@@ -5,17 +5,32 @@
     git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/znap
 source ~/znap/znap.zsh
 
+zstyle ':znap:*' repos-dir ~/ZnapRepos/
+
+export LANG="en_US.UTF-8"
+
 # `znap prompt` makes your prompt visible in just 15-40ms!
 znap prompt sindresorhus/pure
 
 # `znap source` starts plugins.
-znap source marlonrichert/zsh-autocomplete
+#znap source marlonrichert/zsh-autocomplete
 
 # `znap eval` makes evaluating generated command output up to 10 times faster.
 znap eval iterm2 'curl -fsSL https://iterm2.com/shell_integration/zsh'
 
 # `znap install` adds new commands and completions.
-znap install aureliojargas/clitest zsh-users/zsh-completions
+
+znap source zsh-users/zsh-completions
+znap source zsh-users/zaw
+znap source zsh-users/zsh-autosuggestions
+znap source ael-code/zsh-colored-man-pages
+
+#znap source zsh-users/zsh-history-substring-search
+znap source softmoth/zsh-vim-mode
+
+#bindkey '^R' history-incremental-search-backward
+bindkey '^r' zaw-history
+zstyle ':autocomplete:*' delay 0.1
 
 
 # Set name of the theme to load. Optionally, if you set this to "random"
@@ -77,12 +92,6 @@ else
   export EDITOR='vim'
 fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
 export DEFAULT_USER="daniel"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -94,6 +103,7 @@ export DEFAULT_USER="daniel"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim="vim"
+alias ll="ls --color=auto -hla"
 
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:~/projects/go/bin
@@ -104,7 +114,7 @@ export GOPRIVATE=github.com
 alias newtmux='tmux new-session -s $(basename `pwd`)'
 alias gotest='go test $(go list ./... | grep -v /vendor/)'
 
-source <(kubectl completion zsh)
+znap fpath _kubectl 'kubectl completion  zsh'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -132,7 +142,7 @@ export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
 export GO111MODULE=on
 
-autoload -U +X bashcompinit && bashcompinit
+#autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/vault vault
 export PATH="/usr/local/opt/go@1.13/bin:$PATH"
 
@@ -155,9 +165,22 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+# removed in favor of sdkman
+#export PATH="$HOME/.jenv/bin:$PATH"
+#eval "$(jenv init -)"
 
-eval "$(zoxide init zsh --cmd cd)"
+eval "$(zoxide init zsh)"
 
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+export GOOGLE_CLOUD_PROJECT=analytics-dev-219807
+export GEMINI_API_KEY=AIzaSyCjwY-79dKQeehAsmXcGF_R7qW_EoJ7kNc
+export PATH=~/.npm-global/bin:$PATH
+
+# Added by Antigravity
+export PATH="/Users/daniel/.antigravity/antigravity/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
